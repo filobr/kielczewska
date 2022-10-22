@@ -1,5 +1,13 @@
-import { Route } from "consts/consts";
 import { FC, useState, useEffect } from "react";
+import {
+  CenterContainer,
+  Icon,
+  MainPageContainer,
+  SideContainer,
+} from "components/mainPage/mainPage";
+import { Route } from "consts/consts";
+import LeftArrow from "assets/left-arrow.png";
+import RightArrow from "assets/right-arrow.png";
 
 interface MainPageProps {
   CMS_API_URL: string;
@@ -8,7 +16,7 @@ interface MainPageProps {
 
 const MainPage: FC<MainPageProps> = ({ CMS_API_URL, routes }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<any>(null);
   const [error, setError] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -30,7 +38,44 @@ const MainPage: FC<MainPageProps> = ({ CMS_API_URL, routes }) => {
     getData();
   }, []);
 
-  return <div>{routes.mainPage.label}</div>;
+  useEffect(() => {
+    const mainImageTimeout = setTimeout(nextPhoto, 5000);
+    return () => clearTimeout(mainImageTimeout);
+  }, [imageIndex, images]);
+
+  const nextPhoto = () => {
+    if (imageIndex === images.length - 1) {
+      return setImageIndex(0);
+    } else {
+      return setImageIndex(imageIndex + 1);
+    }
+  };
+
+  const prevPhoto = () => {
+    if (imageIndex === 0) {
+      return setImageIndex(images.length - 1);
+    } else {
+      return setImageIndex(imageIndex - 1);
+    }
+  };
+
+  return (
+    <>
+      {images && (
+        <MainPageContainer
+          imageUrl={`${CMS_API_URL}${images[imageIndex].attributes.url}`}
+        >
+          <SideContainer>
+            <Icon src={LeftArrow} onClick={prevPhoto} />
+          </SideContainer>
+          <CenterContainer></CenterContainer>
+          <SideContainer>
+            <Icon src={RightArrow} onClick={nextPhoto} />
+          </SideContainer>
+        </MainPageContainer>
+      )}
+    </>
+  );
 };
 
 export default MainPage;

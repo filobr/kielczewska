@@ -1,21 +1,9 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { FC } from "react";
+import { flexDisplay } from "components/helpers/helpers";
 
 interface ContainerProps {
   imageUrl: string;
 }
-
-type Direction = "row" | "column";
-
-const flexDisplay = (
-  width: string,
-  height: string,
-  direction: Direction
-) => `display: flex;
-flex-direction: ${direction};
-width: ${width};
-height: ${height};`;
 
 export const MainPageContainer = styled.div<ContainerProps>`
   position: fixed;
@@ -52,23 +40,3 @@ export const MainNavbar = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 30px;
 `;
-
-interface NavItemProps {
-  path: string;
-  label: string;
-}
-
-export const NavItem: FC<NavItemProps> = ({ path, label }) => {
-  return (
-    <Link
-      to={path}
-      style={{
-        textDecoration: "none",
-        color: "#ffffff",
-        padding: "20px",
-      }}
-    >
-      {label}
-    </Link>
-  );
-};

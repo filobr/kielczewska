@@ -4,19 +4,19 @@ import {
   Icon,
   MainNavbar,
   MainPageContainer,
-  NavItem,
   SideContainer,
 } from "components/mainPage/mainPage";
+import { NavItem } from "components/navBar/navBar";
 import { Route } from "consts/consts";
 import LeftArrow from "assets/left-arrow.png";
 import RightArrow from "assets/right-arrow.png";
 
-interface MainPageProps {
+export interface ViewsProps {
   CMS_API_URL: string;
   routes: Record<string, Route>;
 }
 
-const MainPage: FC<MainPageProps> = ({ CMS_API_URL, routes }) => {
+const MainPage: FC<ViewsProps> = ({ CMS_API_URL, routes }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<any>(null);
   const [error, setError] = useState(null);

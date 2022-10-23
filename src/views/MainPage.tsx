@@ -2,7 +2,9 @@ import { FC, useState, useEffect } from "react";
 import {
   CenterContainer,
   Icon,
+  MainNavbar,
   MainPageContainer,
+  NavItem,
   SideContainer,
 } from "components/mainPage/mainPage";
 import { Route } from "consts/consts";
@@ -59,6 +61,16 @@ const MainPage: FC<MainPageProps> = ({ CMS_API_URL, routes }) => {
     }
   };
 
+  const tabs = [
+    routes.mainPage,
+    routes.concerts,
+    routes.couples,
+    routes.single,
+    routes.projects,
+    routes.about,
+    routes.contact,
+  ];
+
   return (
     <>
       {images && (
@@ -68,7 +80,13 @@ const MainPage: FC<MainPageProps> = ({ CMS_API_URL, routes }) => {
           <SideContainer>
             <Icon src={LeftArrow} onClick={prevPhoto} />
           </SideContainer>
-          <CenterContainer></CenterContainer>
+          <CenterContainer>
+            <MainNavbar>
+              {tabs.map(tab => (
+                <NavItem path={tab.path} label={tab.label} key={tab.label} />
+              ))}
+            </MainNavbar>
+          </CenterContainer>
           <SideContainer>
             <Icon src={RightArrow} onClick={nextPhoto} />
           </SideContainer>

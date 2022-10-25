@@ -7,19 +7,15 @@ import {
   SideContainer,
 } from "components/mainPage/mainPage";
 import { NavItem } from "components/navBar/navBar";
-import { Route } from "consts/consts";
+import { CMS_API_URL, routes } from "consts/consts";
 import LeftArrow from "assets/left-arrow.png";
 import RightArrow from "assets/right-arrow.png";
+import { LoadingContainer, Spinner } from "components/loadingPage/loadingPage";
 
-export interface ViewsProps {
-  CMS_API_URL: string;
-  routes: Record<string, Route>;
-}
-
-const MainPage: FC<ViewsProps> = ({ CMS_API_URL, routes }) => {
+const MainPage: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState<any>(null);
-  const [error, setError] = useState(null);
+  const [images, setImages] = useState<[] | null | any>(null);
+  const [isError, setIsError] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
   useEffect(() => {
@@ -28,13 +24,14 @@ const MainPage: FC<ViewsProps> = ({ CMS_API_URL, routes }) => {
         CMS_API_URL + "/api/main-page-photo?populate=photos"
       );
       if (!response.ok) {
+        setIsLoading(false);
+        setIsError(true);
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         );
       }
       const data = await response.json();
       setImages(data.data.attributes.photos.data);
-
       setIsLoading(false);
     };
     getData();
@@ -46,7 +43,7 @@ const MainPage: FC<ViewsProps> = ({ CMS_API_URL, routes }) => {
   }, [imageIndex, images]);
 
   const nextPhoto = () => {
-    if (imageIndex === images.length - 1) {
+    if (images && imageIndex === images.length - 1) {
       return setImageIndex(0);
     } else {
       return setImageIndex(imageIndex + 1);
@@ -54,7 +51,7 @@ const MainPage: FC<ViewsProps> = ({ CMS_API_URL, routes }) => {
   };
 
   const prevPhoto = () => {
-    if (imageIndex === 0) {
+    if (images && imageIndex === 0) {
       return setImageIndex(images.length - 1);
     } else {
       return setImageIndex(imageIndex - 1);
@@ -73,6 +70,12 @@ const MainPage: FC<ViewsProps> = ({ CMS_API_URL, routes }) => {
 
   return (
     <>
+      {isLoading && (
+        <LoadingContainer>
+          <Spinner />
+        </LoadingContainer>
+      )}
+      {isError && <p>Sorry, Something went wrong!</p>}
       {images && (
         <MainPageContainer
           imageUrl={`${CMS_API_URL}${images[imageIndex].attributes.url}`}

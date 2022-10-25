@@ -7,10 +7,7 @@ const App: FunctionComponent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path={routes.mainPage.path}
-          element={<MainPage CMS_API_URL={CMS_API_URL} routes={routes} />}
-        ></Route>
+        <Route path={routes.mainPage.path} element={<MainPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

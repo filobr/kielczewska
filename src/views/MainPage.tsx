@@ -14,7 +14,7 @@ import { LoadingContainer, Spinner } from "components/loadingPage/loadingPage";
 
 const MainPage: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState<[] | null | any>(null);
+  const [images, setImages] = useState<[] | null | any>(null); //TODO: add images type
   const [isError, setIsError] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 

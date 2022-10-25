@@ -30,7 +30,6 @@ export const SideContainer = styled.div`
 
 export const CenterContainer = styled.div`
   ${flexDisplay("70vw", "100%", "column")}
-  flex-direction: column;
   align-items: center;
 `;
 
@@ -103,29 +102,25 @@ export const MainPage: FC = () => {
     routes.contact,
   ];
 
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <p>Sorry, Something went wrong!</p>;
   return (
-    <>
-      {isLoading && <LoadingPage />}
-      {isError && <p>Sorry, Something went wrong!</p>}
-      {images && (
-        <MainPageContainer
-          imageUrl={`${CMS_API_URL}${images[imageIndex].attributes.url}`}
-        >
-          <SideContainer>
-            <Icon src={LeftArrow} onClick={prevPhoto} />
-          </SideContainer>
-          <CenterContainer>
-            <MainNavbar>
-              {tabs.map(tab => (
-                <NavItem path={tab.path} label={tab.label} key={tab.label} />
-              ))}
-            </MainNavbar>
-          </CenterContainer>
-          <SideContainer>
-            <Icon src={RightArrow} onClick={nextPhoto} />
-          </SideContainer>
-        </MainPageContainer>
-      )}
-    </>
+    <MainPageContainer
+      imageUrl={`${CMS_API_URL}${images[imageIndex].attributes.url}`}
+    >
+      <SideContainer>
+        <Icon src={LeftArrow} onClick={prevPhoto} />
+      </SideContainer>
+      <CenterContainer>
+        <MainNavbar>
+          {tabs.map(tab => (
+            <NavItem path={tab.path} label={tab.label} key={tab.label} />
+          ))}
+        </MainNavbar>
+      </CenterContainer>
+      <SideContainer>
+        <Icon src={RightArrow} onClick={nextPhoto} />
+      </SideContainer>
+    </MainPageContainer>
   );
 };

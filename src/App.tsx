@@ -1,13 +1,13 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CMS_API_URL, routes } from "consts/consts";
-import MainPage from "views/MainPage";
+import { routes } from "consts/consts";
+import { MainPage } from "views/MainPage";
 
-const App: FunctionComponent = () => {
+const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={routes.mainPage.path} element={<MainPage />}></Route>
+        <Route path={routes.mainPage.path} element={<MainPage />} />
       </Routes>
     </BrowserRouter>
   );

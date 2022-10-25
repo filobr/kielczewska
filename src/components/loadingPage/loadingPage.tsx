@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { flexDisplay } from "components/helpers/helpers";
 import styled, { keyframes } from "styled-components";
 
@@ -26,3 +27,11 @@ export const Spinner = styled.div`
   height: 120px;
   animation: ${spin} 2s linear infinite;
 `;
+
+export const LoadingPage: FC = () => {
+  return (
+    <LoadingContainer>
+      <Spinner />
+    </LoadingContainer>
+  );
+};

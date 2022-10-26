@@ -76,21 +76,11 @@ export const MainPage: FC = () => {
     return () => clearTimeout(mainImageTimeout);
   }, [imageIndex, images]);
 
-  const nextPhoto = () => {
-    if (images && imageIndex === images.length - 1) {
-      return setImageIndex(0);
-    } else {
-      return setImageIndex(imageIndex + 1);
-    }
-  };
+  const nextPhoto = () =>
+    setImageIndex(imageIndex === images.length - 1 ? 0 : imageIndex + 1);
 
-  const prevPhoto = () => {
-    if (images && imageIndex === 0) {
-      return setImageIndex(images.length - 1);
-    } else {
-      return setImageIndex(imageIndex - 1);
-    }
-  };
+  const prevPhoto = () =>
+    setImageIndex(imageIndex === 0 ? images.length - 1 : imageIndex - 1);
 
   const tabs = [
     routes.mainPage,

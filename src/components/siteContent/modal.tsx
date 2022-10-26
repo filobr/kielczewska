@@ -39,41 +39,27 @@ export const Arrow = styled.img`
 interface ModalProps {
   images: string[];
   selectedPhotoIndex: number;
-  setSelectedPhotoIndex: React.Dispatch<React.SetStateAction<number>>;
-  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  previousPhoto: () => void;
+  nextPhoto: () => void;
+  closeModal: () => void;
 }
 
 export const Modal: FC<ModalProps> = ({
   images,
   selectedPhotoIndex,
-  setIsModalOpened,
-  setSelectedPhotoIndex,
-}) => {
-  const prevPhoto = () =>
-    setSelectedPhotoIndex(
-      selectedPhotoIndex === 0
-        ? images.length - 1
-        : Number(selectedPhotoIndex) - 1
-    );
-
-  const nextPhoto = () =>
-    setSelectedPhotoIndex(
-      selectedPhotoIndex === images.length - 1
-        ? 0
-        : Number(selectedPhotoIndex) + 1
-    );
-
-  return (
-    <ModalContainer>
-      <ModalSideContainer>
-        <Arrow src={LeftArrow} onClick={prevPhoto} />
-      </ModalSideContainer>
-      <ModalCenterContainer>
-        <ModalImage src={images[selectedPhotoIndex]} />
-      </ModalCenterContainer>
-      <ModalSideContainer>
-        <Arrow src={RightArrow} onClick={nextPhoto} />
-      </ModalSideContainer>
-    </ModalContainer>
-  );
-};
+  previousPhoto,
+  nextPhoto,
+  closeModal,
+}) => (
+  <ModalContainer>
+    <ModalSideContainer>
+      <Arrow src={LeftArrow} onClick={previousPhoto} />
+    </ModalSideContainer>
+    <ModalCenterContainer>
+      <ModalImage src={images[selectedPhotoIndex]} />
+    </ModalCenterContainer>
+    <ModalSideContainer>
+      <Arrow src={RightArrow} onClick={nextPhoto} />
+    </ModalSideContainer>
+  </ModalContainer>
+);

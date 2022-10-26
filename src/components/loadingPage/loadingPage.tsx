@@ -28,10 +28,8 @@ export const Spinner = styled.div`
   animation: ${spin} 2s linear infinite;
 `;
 
-export const LoadingPage: FC = () => {
-  return (
-    <LoadingContainer>
-      <Spinner />
-    </LoadingContainer>
-  );
-};
+export const LoadingPage: FC = () => (
+  <LoadingContainer>
+    <Spinner />
+  </LoadingContainer>
+);

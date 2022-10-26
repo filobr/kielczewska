@@ -43,58 +43,69 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
-  interface onImageClickProps {
+  const onImageClick = ({
+    currentTarget,
+  }: {
     currentTarget: HTMLImageElement;
-  }
-
-  const onImageClick = ({ currentTarget }: onImageClickProps) => {
+  }) => {
     setSelectedPhotoIndex(images.indexOf(currentTarget.alt));
     setIsModalOpened(true);
   };
+
+  const previousPhoto = () =>
+    setSelectedPhotoIndex(
+      selectedPhotoIndex === 0 ? images.length - 1 : selectedPhotoIndex - 1
+    );
+
+  const nextPhoto = () =>
+    setSelectedPhotoIndex(
+      selectedPhotoIndex === images.length - 1 ? 0 : selectedPhotoIndex + 1
+    );
+
+  const closeModal = () => setIsModalOpened(false);
 
   const leftColumnImages = images.filter((val, index) => !(index % 2));
   const rightColumnImages = images.filter((val, index) => index % 2);
 
   return (
-    <>
-      <Container>
-        {description && <Description>{description}</Description>}
-        <Gallery>
-          <GalleryRow>
-            <GalleryColumn>
-              {leftColumnImages.map((image, index) => (
-                <GalleryImage
-                  src={image}
-                  data-index={index}
-                  alt={image}
-                  key={image}
-                  onClick={onImageClick}
-                />
-              ))}
-            </GalleryColumn>
-            <GalleryColumn>
-              {rightColumnImages.map((image, index) => (
-                <GalleryImage
-                  src={image}
-                  data-index={index}
-                  alt={image}
-                  key={image}
-                  onClick={onImageClick}
-                />
-              ))}
-            </GalleryColumn>
-          </GalleryRow>
-        </Gallery>
-      </Container>
+    <Container>
+      {description && <Description>{description}</Description>}
+      <Gallery>
+        <GalleryRow>
+          <GalleryColumn>
+            {leftColumnImages.map((image, index) => (
+              <GalleryImage
+                src={image}
+                data-index={index}
+                alt={image}
+                key={image}
+                onClick={onImageClick}
+              />
+            ))}
+          </GalleryColumn>
+          <GalleryColumn>
+            {rightColumnImages.map((image, index) => (
+              <GalleryImage
+                src={image}
+                data-index={index}
+                alt={image}
+                key={image}
+                onClick={onImageClick}
+              />
+            ))}
+          </GalleryColumn>
+        </GalleryRow>
+      </Gallery>
       {isModalOpened && (
         <Modal
           images={images}
           selectedPhotoIndex={selectedPhotoIndex}
-          setIsModalOpened={setIsModalOpened}
-          setSelectedPhotoIndex={setSelectedPhotoIndex}
+          previousPhoto={previousPhoto}
+          nextPhoto={nextPhoto}
+          closeModal={closeModal}
         />
       )}
-    </>
+    </Container>
   );
 };
 

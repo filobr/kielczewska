@@ -2,7 +2,11 @@ import { FC, useState, useEffect } from "react";
 import styled from "styled-components";
 import LeftArrow from "assets/left-arrow.png";
 import RightArrow from "assets/right-arrow.png";
-import { flexDisplay } from "components/helpers/helpers";
+import {
+  flexDisplay,
+  selectNextIndex,
+  selectPreviousIndex,
+} from "components/helpers/helpers";
 import { NavItem } from "components/navBar/navBar";
 import { CMS_API_URL, routes } from "consts/consts";
 import { LoadingPage } from "components/loadingPage/loadingPage";
@@ -77,10 +81,10 @@ export const MainPage: FC = () => {
   }, [imageIndex, images]);
 
   const nextPhoto = () =>
-    setImageIndex(imageIndex === images.length - 1 ? 0 : imageIndex + 1);
+    setImageIndex(selectNextIndex(imageIndex, images.length));
 
   const prevPhoto = () =>
-    setImageIndex(imageIndex === 0 ? images.length - 1 : imageIndex - 1);
+    setImageIndex(selectPreviousIndex(imageIndex, images.length));
 
   const tabs = [
     routes.mainPage,

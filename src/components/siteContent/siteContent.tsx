@@ -1,6 +1,10 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { flexDisplay } from "components/helpers/helpers";
+import {
+  flexDisplay,
+  selectPreviousIndex,
+  selectNextIndex,
+} from "components/helpers/helpers";
 import { Modal } from "./modal";
 
 export const Container = styled.div`
@@ -54,15 +58,11 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
 
   const previousPhoto = () =>
     setSelectedPhotoIndex(
-      selectedPhotoIndex === 0 ? images.length - 1 : selectedPhotoIndex - 1
+      selectPreviousIndex(selectedPhotoIndex, images.length)
     );
 
   const nextPhoto = () =>
-    setSelectedPhotoIndex(
-      selectedPhotoIndex === images.length - 1 ? 0 : selectedPhotoIndex + 1
-    );
-
-  const closeModal = () => setIsModalOpened(false);
+    setSelectedPhotoIndex(selectNextIndex(selectedPhotoIndex, images.length));
 
   const leftColumnImages = images.filter((val, index) => !(index % 2));
   const rightColumnImages = images.filter((val, index) => index % 2);
@@ -102,7 +102,7 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
           selectedPhotoIndex={selectedPhotoIndex}
           previousPhoto={previousPhoto}
           nextPhoto={nextPhoto}
-          closeModal={closeModal}
+          closeModal={() => setIsModalOpened(false)}
         />
       )}
     </Container>

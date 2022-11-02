@@ -1,13 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   flexDisplay,
   selectPreviousIndex,
   selectNextIndex,
+  primaryFont,
 } from "components/helpers/helpers";
-import { tabs } from "consts/consts";
+import { tabs, routes } from "consts/consts";
 import { Modal } from "components/siteContent/modal";
 import { NavContainer, NavItem } from "components/navBar/navBar";
+import Logo from "assets/logo.png";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   ${flexDisplay("100%", "auto", "column")}
@@ -15,8 +18,12 @@ export const Container = styled.div`
 `;
 
 export const Description = styled.div`
+  font-size: 18px;
+  text-align: center;
   width: 70%;
-  margin: 50px 0;
+  margin: 150px 0;
+  line-height: 2;
+  ${primaryFont()}
 `;
 
 export const Gallery = styled.div`
@@ -37,7 +44,12 @@ export const GalleryImage = styled.img`
   margin-top: 20px;
   vertical-align: middle;
   width: 100%;
-  cursor: pointer;
+  cursor: zoom-in;
+`;
+
+export const LogoImage = styled.img`
+  width: 150px;
+  height: 150px;
 `;
 
 interface SiteContentProps {
@@ -48,6 +60,10 @@ interface SiteContentProps {
 const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const onImageClick = ({
     currentTarget,
@@ -71,6 +87,9 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
 
   return (
     <Container>
+      <Link to={routes.mainPage.path}>
+        <LogoImage src={Logo} alt="logo" />
+      </Link>
       <NavContainer fixed>
         {tabs.map(tab => (
           <NavItem path={tab.path} label={tab.label} key={tab.label} />

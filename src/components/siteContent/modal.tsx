@@ -35,8 +35,8 @@ export const ModalCenterContainer = styled.div`
 `;
 
 export const ModalImage = styled.img`
-  max-height: 90%;
-  max-width: 90%;
+  max-height: 100%;
+  max-width: 100%;
 `;
 
 export const ModalButton = styled.img<{ close?: boolean }>`

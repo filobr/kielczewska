@@ -35,3 +35,13 @@ export const routes: Record<string, Route> = {
     label: "Kontakt",
   },
 };
+
+export const tabs = [
+  routes.mainPage,
+  routes.concerts,
+  routes.couples,
+  routes.single,
+  routes.projects,
+  routes.about,
+  routes.contact,
+];

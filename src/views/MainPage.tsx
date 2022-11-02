@@ -7,8 +7,8 @@ import {
   selectNextIndex,
   selectPreviousIndex,
 } from "components/helpers/helpers";
-import { NavItem } from "components/navBar/navBar";
-import { CMS_API_URL, routes } from "consts/consts";
+import { NavContainer, NavItem } from "components/navBar/navBar";
+import { CMS_API_URL, tabs } from "consts/consts";
 import { LoadingPage } from "components/loadingPage/loadingPage";
 
 interface ContainerProps {
@@ -39,15 +39,6 @@ export const CenterContainer = styled.div`
 
 export const Icon = styled.img`
   cursor: pointer;
-`;
-
-export const MainNavbar = styled.div`
-  ${flexDisplay("100%", "10vh", "row")}
-  margin: 50px;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 30px;
 `;
 
 export const MainPage: FC = () => {
@@ -86,16 +77,6 @@ export const MainPage: FC = () => {
   const prevPhoto = () =>
     setImageIndex(selectPreviousIndex(imageIndex, images.length));
 
-  const tabs = [
-    routes.mainPage,
-    routes.concerts,
-    routes.couples,
-    routes.single,
-    routes.projects,
-    routes.about,
-    routes.contact,
-  ];
-
   if (isLoading) return <LoadingPage />;
   if (isError) return <p>Sorry, Something went wrong!</p>;
   return (
@@ -106,11 +87,11 @@ export const MainPage: FC = () => {
         <Icon src={LeftArrow} onClick={prevPhoto} />
       </SideContainer>
       <CenterContainer>
-        <MainNavbar>
+        <NavContainer dark>
           {tabs.map(tab => (
-            <NavItem path={tab.path} label={tab.label} key={tab.label} />
+            <NavItem path={tab.path} label={tab.label} key={tab.label} white />
           ))}
-        </MainNavbar>
+        </NavContainer>
       </CenterContainer>
       <SideContainer>
         <Icon src={RightArrow} onClick={nextPhoto} />

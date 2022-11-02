@@ -5,7 +5,9 @@ import {
   selectPreviousIndex,
   selectNextIndex,
 } from "components/helpers/helpers";
-import { Modal } from "./modal";
+import { tabs } from "consts/consts";
+import { Modal } from "components/siteContent/modal";
+import { NavContainer, NavItem } from "components/navBar/navBar";
 
 export const Container = styled.div`
   ${flexDisplay("100vw", "auto", "column")}
@@ -69,6 +71,11 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
 
   return (
     <Container>
+      <NavContainer fixed>
+        {tabs.map(tab => (
+          <NavItem path={tab.path} label={tab.label} key={tab.label} />
+        ))}
+      </NavContainer>
       {description && <Description>{description}</Description>}
       <Gallery>
         <GalleryRow>

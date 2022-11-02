@@ -10,7 +10,7 @@ import { Modal } from "components/siteContent/modal";
 import { NavContainer, NavItem } from "components/navBar/navBar";
 
 export const Container = styled.div`
-  ${flexDisplay("100vw", "auto", "column")}
+  ${flexDisplay("100%", "auto", "column")}
   align-items: center;
 `;
 

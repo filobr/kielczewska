@@ -1,4 +1,4 @@
-type Direction = "row" | "column";
+type Direction = "row" | "column" | "row-reverse";
 
 export const flexDisplay = (
   width: string,

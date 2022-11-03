@@ -1,18 +1,42 @@
 import { FC, useState, useEffect } from "react";
-import {
-  CenterContainer,
-  Icon,
-  MainNavbar,
-  MainPageContainer,
-  SideContainer,
-} from "components/mainPage/mainPage";
-import { NavItem } from "components/navBar/navBar";
-import { CMS_API_URL, routes } from "consts/consts";
+import styled from "styled-components";
 import LeftArrow from "assets/left-arrow.png";
 import RightArrow from "assets/right-arrow.png";
-import { LoadingContainer, Spinner } from "components/loadingPage/loadingPage";
+import {
+  flexDisplay,
+  selectNextIndex,
+  selectPreviousIndex,
+} from "components/helpers/helpers";
+import { NavContainer, NavItem } from "components/navBar/navBar";
+import { centerContent, CMS_API_URL, tabs } from "consts/consts";
+import { LoadingPage } from "components/loadingPage/loadingPage";
 
-const MainPage: FC = () => {
+export const MainPageContainer = styled.div<{ imageUrl: string }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(${props => props.imageUrl});
+  ${flexDisplay("100vw", "100vh", "row")}
+`;
+
+export const SideContainer = styled.div`
+  ${flexDisplay("15vw", "100%", "column")}
+  ${centerContent}
+`;
+
+export const CenterContainer = styled.div`
+  ${flexDisplay("70vw", "100%", "column")}
+  align-items: center;
+`;
+
+export const Icon = styled.img`
+  cursor: pointer;
+`;
+
+export const MainPage: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<[] | null | any>(null); //TODO: add images type
   const [isError, setIsError] = useState(false);
@@ -42,61 +66,31 @@ const MainPage: FC = () => {
     return () => clearTimeout(mainImageTimeout);
   }, [imageIndex, images]);
 
-  const nextPhoto = () => {
-    if (images && imageIndex === images.length - 1) {
-      return setImageIndex(0);
-    } else {
-      return setImageIndex(imageIndex + 1);
-    }
-  };
+  const nextPhoto = () =>
+    setImageIndex(selectNextIndex(imageIndex, images.length));
 
-  const prevPhoto = () => {
-    if (images && imageIndex === 0) {
-      return setImageIndex(images.length - 1);
-    } else {
-      return setImageIndex(imageIndex - 1);
-    }
-  };
+  const prevPhoto = () =>
+    setImageIndex(selectPreviousIndex(imageIndex, images.length));
 
-  const tabs = [
-    routes.mainPage,
-    routes.concerts,
-    routes.couples,
-    routes.single,
-    routes.projects,
-    routes.about,
-    routes.contact,
-  ];
-
+  if (isLoading) return <LoadingPage />;
+  if (isError) return <p>Sorry, Something went wrong!</p>;
   return (
-    <>
-      {isLoading && (
-        <LoadingContainer>
-          <Spinner />
-        </LoadingContainer>
-      )}
-      {isError && <p>Sorry, Something went wrong!</p>}
-      {images && (
-        <MainPageContainer
-          imageUrl={`${CMS_API_URL}${images[imageIndex].attributes.url}`}
-        >
-          <SideContainer>
-            <Icon src={LeftArrow} onClick={prevPhoto} />
-          </SideContainer>
-          <CenterContainer>
-            <MainNavbar>
-              {tabs.map(tab => (
-                <NavItem path={tab.path} label={tab.label} key={tab.label} />
-              ))}
-            </MainNavbar>
-          </CenterContainer>
-          <SideContainer>
-            <Icon src={RightArrow} onClick={nextPhoto} />
-          </SideContainer>
-        </MainPageContainer>
-      )}
-    </>
+    <MainPageContainer
+      imageUrl={`${CMS_API_URL}${images[imageIndex].attributes.url}`}
+    >
+      <SideContainer>
+        <Icon src={LeftArrow} onClick={prevPhoto} />
+      </SideContainer>
+      <CenterContainer>
+        <NavContainer dark>
+          {tabs.map(tab => (
+            <NavItem path={tab.path} label={tab.label} key={tab.label} white />
+          ))}
+        </NavContainer>
+      </CenterContainer>
+      <SideContainer>
+        <Icon src={RightArrow} onClick={nextPhoto} />
+      </SideContainer>
+    </MainPageContainer>
   );
 };
-
-export default MainPage;

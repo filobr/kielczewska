@@ -8,7 +8,7 @@ export const CMS_API_URL: string = "https://kielczewska-cms.herokuapp.com";
 export const routes: Record<string, Route> = {
   mainPage: {
     path: "/",
-    label: "Main",
+    label: "Strona główna",
   },
   concerts: {
     path: "/fotografia-koncertowa",
@@ -35,3 +35,19 @@ export const routes: Record<string, Route> = {
     label: "Kontakt",
   },
 };
+
+export const tabs = [
+  routes.concerts,
+  routes.couples,
+  routes.single,
+  routes.projects,
+  routes.about,
+  routes.contact,
+];
+
+export const centerContent: string = `justify-content: center; align-items: center;`;
+
+export const primaryFont: string = "font-family: Lato";
+
+export const navbarFont: string =
+  "font-family: Alata; text-transform: uppercase";

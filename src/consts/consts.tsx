@@ -44,3 +44,10 @@ export const tabs = [
   routes.about,
   routes.contact,
 ];
+
+export const centerContent: string = `justify-content: center; align-items: center;`;
+
+export const primaryFont: string = "font-family: Lato";
+
+export const navbarFont: string =
+  "font-family: Alata; text-transform: uppercase";

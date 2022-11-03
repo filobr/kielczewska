@@ -14,7 +14,3 @@ export const selectPreviousIndex = (index: number, length: number) =>
 
 export const selectNextIndex = (index: number, length: number) =>
   index === length - 1 ? 0 : index + 1;
-
-export const primaryFont = () => "font-family: Lato";
-
-export const navbarFont = () => "font-family: Alata; text-transform: uppercase";

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { flexDisplay } from "components/helpers/helpers";
+import { centerContent } from "consts/consts";
 import LeftArrow from "assets/left-arrow.png";
 import RightArrow from "assets/right-arrow.png";
 import CloseIcon from "assets/close-icon.png";
@@ -24,14 +25,12 @@ export const ModalMainContainer = styled.div`
 
 export const ModalSideContainer = styled.div`
   ${flexDisplay("15vw", "100%", "column")}
-  justify-content: center;
-  align-items: center;
+  ${centerContent}
 `;
 
 export const ModalCenterContainer = styled.div`
   ${flexDisplay("70vw", "100%", "column")}
-  align-items: center;
-  justify-content: center;
+  ${centerContent}
 `;
 
 export const ModalImage = styled.img`

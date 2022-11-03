@@ -4,9 +4,8 @@ import {
   flexDisplay,
   selectPreviousIndex,
   selectNextIndex,
-  primaryFont,
 } from "components/helpers/helpers";
-import { tabs, routes } from "consts/consts";
+import { tabs, routes, primaryFont } from "consts/consts";
 import { Modal } from "components/siteContent/modal";
 import { NavContainer, NavItem } from "components/navBar/navBar";
 import Logo from "assets/logo.png";
@@ -23,7 +22,7 @@ export const Description = styled.div`
   width: 70%;
   margin: 150px 0;
   line-height: 2;
-  ${primaryFont()}
+  ${primaryFont}
 `;
 
 export const Gallery = styled.div`
@@ -90,7 +89,7 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
       <Link to={routes.mainPage.path}>
         <LogoImage src={Logo} alt="logo" />
       </Link>
-      <NavContainer fixed>
+      <NavContainer sticky>
         {tabs.map(tab => (
           <NavItem path={tab.path} label={tab.label} key={tab.label} />
         ))}

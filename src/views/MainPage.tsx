@@ -8,14 +8,10 @@ import {
   selectPreviousIndex,
 } from "components/helpers/helpers";
 import { NavContainer, NavItem } from "components/navBar/navBar";
-import { CMS_API_URL, tabs } from "consts/consts";
+import { centerContent, CMS_API_URL, tabs } from "consts/consts";
 import { LoadingPage } from "components/loadingPage/loadingPage";
 
-interface ContainerProps {
-  imageUrl: string;
-}
-
-export const MainPageContainer = styled.div<ContainerProps>`
+export const MainPageContainer = styled.div<{ imageUrl: string }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,8 +24,7 @@ export const MainPageContainer = styled.div<ContainerProps>`
 
 export const SideContainer = styled.div`
   ${flexDisplay("15vw", "100%", "column")}
-  justify-content: center;
-  align-items: center;
+  ${centerContent}
 `;
 
 export const CenterContainer = styled.div`

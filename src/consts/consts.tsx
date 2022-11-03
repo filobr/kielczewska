@@ -49,5 +49,4 @@ export const centerContent: string = `justify-content: center; align-items: cent
 
 export const primaryFont: string = "font-family: Lato";
 
-export const navbarFont: string =
-  "font-family: Alata; text-transform: uppercase";
+export const navbarFont: string = "font-family: Alata; ";

@@ -14,6 +14,7 @@ import n7 from "assets/test/n7.jpg";
 import n8 from "assets/test/n8.jpg";
 import n9 from "assets/test/n9.jpg";
 import SiteContent from "components/siteContent/siteContent";
+import About from "views/About";
 
 const images = [n1, n2, n3, n4, n5, n6, n7, n8, n9];
 
@@ -35,6 +36,7 @@ const App: FC = () => {
           path={routes.concerts.path}
           element={<SiteContent images={images} description={description} />}
         />
+        <Route path={routes.about.path} element={<About />} />
       </Routes>
     </BrowserRouter>
   );

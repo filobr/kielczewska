@@ -7,7 +7,7 @@ import {
   selectNextIndex,
   selectPreviousIndex,
 } from "components/helpers/helpers";
-import { NavContainer, NavItem } from "components/navBar/navBar";
+import { Navigation } from "components/navBar/navBar";
 import { centerContent, CMS_API_URL, tabs } from "consts/consts";
 import { LoadingPage } from "components/loadingPage/loadingPage";
 
@@ -82,11 +82,7 @@ export const MainPage: FC = () => {
         <Icon src={LeftArrow} onClick={prevPhoto} />
       </SideContainer>
       <CenterContainer>
-        <NavContainer dark>
-          {tabs.map(tab => (
-            <NavItem path={tab.path} label={tab.label} key={tab.label} white />
-          ))}
-        </NavContainer>
+        <Navigation mainPage />
       </CenterContainer>
       <SideContainer>
         <Icon src={RightArrow} onClick={nextPhoto} />

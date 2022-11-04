@@ -1,17 +1,11 @@
 import { FC, useEffect } from "react";
 import styled from "styled-components";
-import { flexDisplay } from "components/helpers/helpers";
 import { navbarFont } from "consts/consts";
 import { Navigation } from "components/navBar/navBar";
-import { Description } from "components/siteContent/siteContent";
+import { Container, Description } from "components/siteContent/siteContent";
 import Image from "assets/about-photo.jpg";
 
 const title = `ut sem nulla pharetra diam sit`;
-
-export const AboutContainer = styled.div`
-  ${flexDisplay("100%", "auto", "column")};
-  align-items: center;
-`;
 
 export const AboutTitle = styled.div`
   margin: 50px;
@@ -31,7 +25,7 @@ const About: FC = () => {
   }, []);
 
   return (
-    <AboutContainer>
+    <Container>
       <Navigation />
       <AboutTitle>{title}</AboutTitle>
       <AboutImage src={Image} alt="Karolinka" />
@@ -50,7 +44,7 @@ const About: FC = () => {
         expedita et omnis adipisci eos quasi amet et impedit molestias. Et
         dignissimos provident qui provident asperiores sit reiciendis enim.
       </Description>
-    </AboutContainer>
+    </Container>
   );
 };
 export default About;

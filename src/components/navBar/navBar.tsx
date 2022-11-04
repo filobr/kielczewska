@@ -6,16 +6,16 @@ import { navbarFont, routes, tabs } from "consts/consts";
 import Logo from "assets/logo.png";
 
 interface NavContainerProps {
-  dark?: boolean;
-  sticky?: boolean;
+  mainPage: boolean;
 }
 
 export const NavContainer = styled.div<NavContainerProps>`
   ${flexDisplay("80vw", "auto", "row")}
-  margin: ${({ sticky }) => (sticky ? "0" : "50px")};
+  margin: ${({ mainPage }) => (mainPage ? "50px" : "0")};
   align-items: center;
   justify-content: space-evenly;
-  background-color: ${({ dark }) => (dark ? "rgba(0, 0, 0, 0.7)" : "#ffffff")};
+  background-color: ${({ mainPage }) =>
+    mainPage ? "rgba(0, 0, 0, 0.7)" : "#ffffff"};
   border-radius: 30px;
   position: sticky;
   top: 0;
@@ -26,16 +26,16 @@ export const NavContainer = styled.div<NavContainerProps>`
 interface NavItemProps {
   path: string;
   label: string;
-  white?: boolean;
+  mainPage: boolean;
 }
 
-export const NavItem: FC<NavItemProps> = ({ path, label, white }) => {
+export const NavItem: FC<NavItemProps> = ({ path, label, mainPage }) => {
   return (
     <Link
       to={path}
       style={{
         textDecoration: "none",
-        color: white ? "#ffffff" : "#000000",
+        color: mainPage ? "#ffffff" : "#000000",
         padding: "20px",
         fontSize: "16px",
       }}
@@ -50,14 +50,21 @@ export const LogoImage = styled.img`
   height: 150px;
 `;
 
-export const Navigation: FC = () => (
+export const Navigation: FC<{ mainPage?: boolean }> = ({ mainPage }) => (
   <>
-    <Link to={routes.mainPage.path}>
-      <LogoImage src={Logo} alt="logo" />
-    </Link>
-    <NavContainer sticky>
+    {!mainPage && (
+      <Link to={routes.mainPage.path}>
+        <LogoImage src={Logo} alt="logo" />
+      </Link>
+    )}
+    <NavContainer mainPage={mainPage ? true : false}>
       {tabs.map(tab => (
-        <NavItem path={tab.path} label={tab.label} key={tab.label} />
+        <NavItem
+          path={tab.path}
+          label={tab.label}
+          key={tab.label}
+          mainPage={mainPage ? true : false}
+        />
       ))}
     </NavContainer>
   </>

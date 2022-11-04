@@ -5,11 +5,9 @@ import {
   selectPreviousIndex,
   selectNextIndex,
 } from "components/helpers/helpers";
-import { tabs, routes, primaryFont } from "consts/consts";
+import { primaryFont } from "consts/consts";
 import { Modal } from "components/siteContent/modal";
-import { NavContainer, NavItem } from "components/navBar/navBar";
-import Logo from "assets/logo.png";
-import { Link } from "react-router-dom";
+import { Navigation } from "components/navBar/navBar";
 
 export const Container = styled.div`
   ${flexDisplay("100%", "auto", "column")}
@@ -20,7 +18,7 @@ export const Description = styled.div`
   font-size: 18px;
   text-align: center;
   width: 70%;
-  margin: 150px 0;
+  margin: 50px 0;
   line-height: 2;
   ${primaryFont}
 `;
@@ -44,11 +42,6 @@ export const GalleryImage = styled.img`
   vertical-align: middle;
   width: 100%;
   cursor: zoom-in;
-`;
-
-export const LogoImage = styled.img`
-  width: 150px;
-  height: 150px;
 `;
 
 interface SiteContentProps {
@@ -86,14 +79,7 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
 
   return (
     <Container>
-      <Link to={routes.mainPage.path}>
-        <LogoImage src={Logo} alt="logo" />
-      </Link>
-      <NavContainer sticky>
-        {tabs.map(tab => (
-          <NavItem path={tab.path} label={tab.label} key={tab.label} />
-        ))}
-      </NavContainer>
+      <Navigation />
       {description && <Description>{description}</Description>}
       <Gallery>
         <GalleryRow>

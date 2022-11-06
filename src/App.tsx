@@ -2,6 +2,8 @@ import { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { routes } from "consts/consts";
 import { MainPage } from "views/MainPage";
+import { About } from "views/About";
+import { Contact } from "views/Contact";
 
 //images for development
 import n1 from "assets/test/n1.jpg";
@@ -14,7 +16,6 @@ import n7 from "assets/test/n7.jpg";
 import n8 from "assets/test/n8.jpg";
 import n9 from "assets/test/n9.jpg";
 import SiteContent from "components/siteContent/siteContent";
-import About from "views/About";
 
 const images = [n1, n2, n3, n4, n5, n6, n7, n8, n9];
 
@@ -37,6 +38,7 @@ const App: FC = () => {
           element={<SiteContent images={images} description={description} />}
         />
         <Route path={routes.about.path} element={<About />} />
+        <Route path={routes.contact.path} element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );

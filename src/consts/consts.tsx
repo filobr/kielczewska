@@ -5,6 +5,8 @@ export interface Route {
 
 export const CMS_API_URL: string = "https://kielczewska-cms.herokuapp.com";
 
+export const instagramUrl = "https://onet.pl";
+
 export const routes: Record<string, Route> = {
   mainPage: {
     path: "/",

@@ -5,7 +5,11 @@ export interface Route {
 
 export const CMS_API_URL: string = "https://kielczewska-cms.herokuapp.com";
 
-export const instagramUrl = "https://onet.pl";
+export const INSTAGRAM_URL: string = "https://onet.pl";
+
+export const PHONE_NUMBER: string = "666 666 666";
+
+export const EMAIL_ADRESS: string = "karolinakielczewska3@gmail.com";
 
 export const routes: Record<string, Route> = {
   mainPage: {

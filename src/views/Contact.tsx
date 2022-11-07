@@ -4,7 +4,12 @@ import emailjs from "@emailjs/browser";
 import { flexDisplay } from "components/helpers/helpers";
 import { Container } from "components/siteContent/siteContent";
 import { Navigation } from "components/navBar/navBar";
-import { instagramUrl, navbarFont } from "consts/consts";
+import {
+  EMAIL_ADRESS,
+  INSTAGRAM_URL,
+  navbarFont,
+  PHONE_NUMBER,
+} from "consts/consts";
 import PhoneIcon from "assets/phone-icon.svg";
 import EmailIcon from "assets/email-icon.svg";
 import InstagramIcon from "assets/instagram-icon.svg";
@@ -79,6 +84,7 @@ const ContactIcon = styled.img`
   height: 50px;
   padding: 10px;
   margin-top: 40px;
+  cursor: pointer;
 `;
 
 const ContactData = styled.span`
@@ -88,7 +94,7 @@ const ContactData = styled.span`
 
 export const Contact: FC = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [popupMessage, setPopupMessage] = useState<string>();
+  const [popupMessage, setPopupMessage] = useState("");
   const form = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
@@ -108,22 +114,20 @@ export const Contact: FC = () => {
 
     if (form.current && SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY) {
       emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
-        result => {
+        () => {
           setPopupMessage("Wiadomość została wysłana");
           setIsPopupVisible(true);
           form.current?.reset();
         },
-        error => {
+        () => {
           setPopupMessage("Przepraszamy, coś poszło nie tak");
           setIsPopupVisible(true);
-          console.log(error);
         }
       );
-    } else return;
+    }
   };
   return (
     <Container>
-      {isPopupVisible && <PopupContainer>{popupMessage}</PopupContainer>}
       <Navigation />
       <ContactContainer>
         <Column>
@@ -138,18 +142,22 @@ export const Contact: FC = () => {
           </Form>
         </Column>
         <Column>
-          <ContactIcon src={PhoneIcon} alt="phone-icon" />
-          <ContactData>666 666 666</ContactData>
-          <ContactIcon src={EmailIcon} alt="email-icon" />
-          <ContactData>karolinka@gmail.com</ContactData>
+          <a href={`tel:${PHONE_NUMBER}`}>
+            <ContactIcon src={PhoneIcon} alt="phone-icon" />
+          </a>
+          <ContactData>{PHONE_NUMBER}</ContactData>
+          <a href={`mailto:${EMAIL_ADRESS}`}>
+            <ContactIcon src={EmailIcon} alt="email-icon" />
+          </a>
+          <ContactData>{EMAIL_ADRESS}</ContactData>
           <ContactIcon
             src={InstagramIcon}
             alt="instagram-icon"
-            onClick={() => window.open(instagramUrl)}
-            style={{ cursor: "pointer" }}
+            onClick={() => window.open(INSTAGRAM_URL)}
           />
         </Column>
       </ContactContainer>
+      {isPopupVisible && <PopupContainer>{popupMessage}</PopupContainer>}
     </Container>
   );
 };

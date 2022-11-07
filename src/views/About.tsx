@@ -19,7 +19,7 @@ export const AboutImage = styled.img`
   border-radius: 250px;
 `;
 
-const About: FC = () => {
+export const About: FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -47,4 +47,3 @@ const About: FC = () => {
     </Container>
   );
 };
-export default About;

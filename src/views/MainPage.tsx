@@ -8,7 +8,7 @@ import {
   selectPreviousIndex,
 } from "components/helpers/helpers";
 import { Navigation } from "components/navBar/navBar";
-import { centerContent, CMS_API_URL, tabs } from "consts/consts";
+import { centerContent, CMS_API_URL } from "consts/consts";
 import { LoadingPage } from "components/loadingPage/loadingPage";
 
 export const MainPageContainer = styled.div<{ imageUrl: string }>`

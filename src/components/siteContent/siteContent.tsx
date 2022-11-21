@@ -5,7 +5,7 @@ import {
   selectPreviousIndex,
   selectNextIndex,
 } from "components/helpers/helpers";
-import { primaryFont } from "consts/consts";
+import { primaryFont, width } from "consts/consts";
 import { Modal } from "components/siteContent/modal";
 import { Navigation } from "components/navBar/navBar";
 import { MobileNavbar } from "components/navBar/mobileNavBar";
@@ -21,21 +21,32 @@ export const Description = styled.div`
   width: 70%;
   margin: 50px 0;
   line-height: 2;
-  ${primaryFont}
+  ${primaryFont};
+  ${width.tablet} {
+  }
+  ${width.mobile} {
+    font-size: 12px;
+    margin: 20px 0;
+    width: 90%;
+  }
 `;
 
 export const Gallery = styled.div`
   width: 70%;
+  ${width.mobile} {
+    width: 100%;
+  }
 `;
 
 export const GalleryRow = styled.div`
   ${flexDisplay("100%", "auto", "row")};
-  padding: 0 10px;
 `;
 
 export const GalleryColumn = styled.div`
-  flex: 50%;
   padding: 0 10px;
+  ${width.mobile} {
+    padding: 0 5px;
+  }
 `;
 
 export const GalleryImage = styled.img`
@@ -43,6 +54,9 @@ export const GalleryImage = styled.img`
   vertical-align: middle;
   width: 100%;
   cursor: zoom-in;
+  ${width.mobile} {
+    margin-top: 10px;
+  }
 `;
 
 interface SiteContentProps {

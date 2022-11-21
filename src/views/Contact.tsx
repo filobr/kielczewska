@@ -9,6 +9,7 @@ import {
   INSTAGRAM_URL,
   navbarFont,
   PHONE_NUMBER,
+  width,
 } from "consts/consts";
 import PhoneIcon from "assets/phone-icon.svg";
 import EmailIcon from "assets/email-icon.svg";
@@ -17,12 +18,20 @@ import { MobileNavbar } from "components/navBar/mobileNavBar";
 
 export const ContactContainer = styled.div`
   ${flexDisplay("80%", "auto", "row")}
+  ${width.mobile} {
+    flex-direction: column;
+    margin-top: 20px;
+  }
 `;
 
 export const Column = styled.div`
   ${flexDisplay("50%", "auto", "column")};
   padding: 50px;
   align-items: center;
+  ${width.mobile} {
+    width: 100%;
+    padding: 0;
+  }
 `;
 
 export const Form = styled.form`
@@ -84,13 +93,16 @@ const ContactIcon = styled.img`
   width: 50px;
   height: 50px;
   padding: 10px;
-  margin-top: 40px;
   cursor: pointer;
 `;
 
 const ContactData = styled.span`
   ${navbarFont};
   font-size: 20px;
+`;
+
+const Space = styled.div`
+  height: 40px;
 `;
 
 export const Contact: FC = () => {
@@ -150,14 +162,17 @@ export const Contact: FC = () => {
           </Form>
         </Column>
         <Column>
+          <Space />
           <a href={`tel:${PHONE_NUMBER}`}>
             <ContactIcon src={PhoneIcon} alt="phone-icon" />
           </a>
           <ContactData>{PHONE_NUMBER}</ContactData>
+          <Space />
           <a href={`mailto:${EMAIL_ADRESS}`}>
             <ContactIcon src={EmailIcon} alt="email-icon" />
           </a>
           <ContactData>{EMAIL_ADRESS}</ContactData>
+          <Space />
           <ContactIcon
             src={InstagramIcon}
             alt="instagram-icon"

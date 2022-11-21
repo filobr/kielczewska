@@ -8,6 +8,7 @@ import {
 import { primaryFont } from "consts/consts";
 import { Modal } from "components/siteContent/modal";
 import { Navigation } from "components/navBar/navBar";
+import { MobileNavbar } from "components/navBar/mobileNavBar";
 
 export const Container = styled.div`
   ${flexDisplay("100%", "auto", "column")}
@@ -51,10 +52,12 @@ interface SiteContentProps {
 
 const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setIsMobile(!(document.documentElement.clientWidth > 640));
   }, []);
 
   const onImageClick = ({
@@ -79,7 +82,7 @@ const SiteContent: FC<SiteContentProps> = ({ images, description }) => {
 
   return (
     <Container>
-      <Navigation />
+      {isMobile ? <MobileNavbar /> : <Navigation />}
       {description && <Description>{description}</Description>}
       <Gallery>
         <GalleryRow>

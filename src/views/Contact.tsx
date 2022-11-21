@@ -13,6 +13,7 @@ import {
 import PhoneIcon from "assets/phone-icon.svg";
 import EmailIcon from "assets/email-icon.svg";
 import InstagramIcon from "assets/instagram-icon.svg";
+import { MobileNavbar } from "components/navBar/mobileNavBar";
 
 export const ContactContainer = styled.div`
   ${flexDisplay("80%", "auto", "row")}
@@ -96,6 +97,12 @@ export const Contact: FC = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const form = useRef<HTMLFormElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setIsMobile(!(document.documentElement.clientWidth > 640));
+  }, []);
 
   useEffect(() => {
     if (isPopupVisible) {
@@ -126,9 +133,10 @@ export const Contact: FC = () => {
       );
     }
   };
+
   return (
     <Container>
-      <Navigation />
+      {isMobile ? <MobileNavbar /> : <Navigation />}
       <ContactContainer>
         <Column>
           <Form ref={form} onSubmit={onFormSubmit}>

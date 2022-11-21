@@ -26,10 +26,16 @@ export const NavContainer = styled.div<NavContainerProps>`
 interface NavItemProps {
   path: string;
   label: string;
-  mainPage: boolean;
+  mainPage?: boolean;
+  mobile?: boolean;
 }
 
-export const NavItem: FC<NavItemProps> = ({ path, label, mainPage }) => {
+export const NavItem: FC<NavItemProps> = ({
+  path,
+  label,
+  mainPage,
+  mobile,
+}) => {
   return (
     <Link
       to={path}

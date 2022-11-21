@@ -1,9 +1,10 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { navbarFont } from "consts/consts";
 import { Navigation } from "components/navBar/navBar";
 import { Container, Description } from "components/siteContent/siteContent";
 import Image from "assets/about-photo.jpg";
+import { MobileNavbar } from "components/navBar/mobileNavBar";
 
 const title = `ut sem nulla pharetra diam sit`;
 
@@ -20,13 +21,16 @@ export const AboutImage = styled.img`
 `;
 
 export const About: FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    setIsMobile(!(document.documentElement.clientWidth > 640));
   }, []);
 
   return (
     <Container>
-      <Navigation />
+      {isMobile ? <MobileNavbar /> : <Navigation />}
       <AboutTitle>{title}</AboutTitle>
       <AboutImage src={Image} alt="Karolinka" />
       <Description>

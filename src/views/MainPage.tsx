@@ -10,6 +10,7 @@ import {
 import { Navigation } from "components/navBar/navBar";
 import { centerContent, CMS_API_URL } from "consts/consts";
 import { LoadingPage } from "components/loadingPage/loadingPage";
+import { MobileNavbar } from "components/navBar/mobileNavBar";
 
 export const MainPageContainer = styled.div<{ imageUrl: string }>`
   position: fixed;
@@ -41,6 +42,7 @@ export const MainPage: FC = () => {
   const [images, setImages] = useState<[] | null | any>(null); //TODO: add images type
   const [isError, setIsError] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -58,6 +60,7 @@ export const MainPage: FC = () => {
       setImages(data.data.attributes.photos.data);
       setIsLoading(false);
     };
+    setIsMobile(!(document.documentElement.clientWidth > 640));
     getData();
   }, []);
 
@@ -82,7 +85,7 @@ export const MainPage: FC = () => {
         <Icon src={LeftArrow} onClick={prevPhoto} />
       </SideContainer>
       <CenterContainer>
-        <Navigation mainPage />
+        {isMobile ? <MobileNavbar /> : <Navigation mainPage />}
       </CenterContainer>
       <SideContainer>
         <Icon src={RightArrow} onClick={nextPhoto} />

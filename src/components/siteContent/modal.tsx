@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, useState, TouchEvent } from "react";
 import styled from "styled-components";
 import { flexDisplay } from "components/helpers/helpers";
-import { centerContent } from "consts/consts";
+import { centerContent, width } from "consts/consts";
 import LeftArrow from "assets/left-arrow.png";
 import RightArrow from "assets/right-arrow.png";
 import CloseIcon from "assets/close-icon.png";
@@ -11,7 +11,7 @@ export const ModalContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.7);
 `;
 
@@ -24,13 +24,19 @@ export const ModalMainContainer = styled.div`
 `;
 
 export const ModalSideContainer = styled.div`
-  ${flexDisplay("15vw", "100%", "column")}
-  ${centerContent}
+  ${flexDisplay("15vw", "100%", "column")};
+  ${centerContent};
+  ${width.mobile} {
+    display: none;
+  }
 `;
 
 export const ModalCenterContainer = styled.div`
-  ${flexDisplay("70vw", "100%", "column")}
-  ${centerContent}
+  ${flexDisplay("70vw", "100%", "column")};
+  ${centerContent};
+  ${width.mobile} {
+    width: 100vw;
+  }
 `;
 
 export const ModalImage = styled.img`
@@ -57,21 +63,49 @@ export const Modal: FC<ModalProps> = ({
   previousPhoto,
   nextPhoto,
   closeModal,
-}) => (
-  <ModalContainer>
-    <ModalTopContainer>
-      <ModalButton src={CloseIcon} onClick={closeModal} close />
-    </ModalTopContainer>
-    <ModalMainContainer>
-      <ModalSideContainer>
-        <ModalButton src={LeftArrow} onClick={previousPhoto} />
-      </ModalSideContainer>
-      <ModalCenterContainer>
-        <ModalImage src={images[selectedPhotoIndex]} />
-      </ModalCenterContainer>
-      <ModalSideContainer>
-        <ModalButton src={RightArrow} onClick={nextPhoto} />
-      </ModalSideContainer>
-    </ModalMainContainer>
-  </ModalContainer>
-);
+}) => {
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handleTouchStart = ({ targetTouches }: TouchEvent) => {
+    setTouchStart(targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = ({ targetTouches }: TouchEvent) => {
+    setTouchEnd(targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 50) {
+      nextPhoto();
+    }
+
+    if (touchStart - touchEnd < -50) {
+      previousPhoto();
+    }
+  };
+
+  return (
+    <ModalContainer>
+      <ModalTopContainer>
+        <ModalButton src={CloseIcon} onClick={closeModal} close />
+      </ModalTopContainer>
+      <ModalMainContainer>
+        <ModalSideContainer>
+          <ModalButton src={LeftArrow} onClick={previousPhoto} />
+        </ModalSideContainer>
+        <ModalCenterContainer>
+          <ModalImage
+            src={images[selectedPhotoIndex]}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          />
+        </ModalCenterContainer>
+        <ModalSideContainer>
+          <ModalButton src={RightArrow} onClick={nextPhoto} />
+        </ModalSideContainer>
+      </ModalMainContainer>
+    </ModalContainer>
+  );
+};
